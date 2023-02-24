@@ -1,0 +1,21 @@
+:root {
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  // От этого значения рассчитываем rem'ы
+  font-size: 10px;
+}
+
+body {
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
