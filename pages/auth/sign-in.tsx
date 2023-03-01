@@ -26,7 +26,7 @@ export default function SignIn() {
     password: '',
   };
 
-  const handleSignUp = (email: string, password: string) => {
+  const handleSignIn = (email: string, password: string) => {
     mutate(
       'https://frontend-test-api.yoldi.agency/api/auth/login',
 
@@ -70,7 +70,14 @@ export default function SignIn() {
       <div className="container-form">
         <Formik initialValues={initialValues} validateOnBlur onSubmit={(values) => {}} validationSchema={validationSchema}>
           {({ values, errors, touched, handleChange, handleBlur, isValid, dirty }) => (
-            <form className={'form-sign-up'}>
+            <form
+              className="form-sign-up"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSignIn(values.email, values.password);
+                }
+              }}
+            >
               <div className="h1">Вход в Yoldi Agency</div>
               <div className="input-e-mail">
                 <input
@@ -107,7 +114,7 @@ export default function SignIn() {
                 />
               </div>
               {touched.password && errors.password && <p className="error">{errors.password}</p>}
-              <button className="button-gray" disabled={!isValid && !dirty} type="button" onClick={() => handleSignUp(values.email, values.password)}>
+              <button className="button-gray" disabled={!isValid && !dirty} type="button" onClick={() => handleSignIn(values.email, values.password)}>
                 Войти
               </button>
             </form>

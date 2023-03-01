@@ -38,7 +38,7 @@ export default function SignUp() {
         body: JSON.stringify({ email, name, password }),
       })
         .then((response: any) => {
-          if (response.status === 201) {
+          if (response.status === 201 || 200) {
             localStorage.setItem('X-API-KEY', `${response.value}`);
             return response;
           } else {
@@ -73,7 +73,14 @@ export default function SignUp() {
       <div className="container-form">
         <Formik initialValues={initialValues} validateOnBlur onSubmit={(values) => {}} validationSchema={validationSchema}>
           {({ values, errors, touched, handleChange, handleBlur, isValid, dirty }) => (
-            <form className={'form-sign-up'}>
+            <form
+              className="form-sign-up"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSignUp(values.email, values.name, values.password);
+                }
+              }}
+            >
               <div className="h1">
                 Регистрация
                 <br /> в Yoldi Agency
