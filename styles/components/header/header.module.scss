@@ -1,0 +1,23 @@
+header {
+  @media (max-width: 500px) {
+    border-bottom: 0.1rem solid var(--strokes-secondary);
+  }
+}
+
+header > .container-header {
+  .left-side {
+    display: flex;
+    align-items: center;
+
+    p {
+      max-width: 22.5rem;
+      margin-left: 2rem;
+    }
+  }
+
+  @media (max-width: 500px) {
+    p {
+      display: none;
+    }
+  }
+}

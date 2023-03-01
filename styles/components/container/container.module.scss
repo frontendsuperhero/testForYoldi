@@ -1,0 +1,54 @@
+// Общий контейнер всего приложения
+.container-outter-app {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+
+  main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}
+
+// Контейнер, ограничивающий расстояние по бокам
+.container {
+  max-width: 95vw;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Контейнер header'a
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  min-height: 8rem;
+}
+
+// Контейнер форм авторизации
+.container-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-grow: 1;
+
+  width: 100vw;
+
+  background-color: var(--strokes-secondary);
+
+  @media (max-width: 500px) {
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: var(--white);
+  }
+}
+
+// Контейнер инпута с иконками
+.container-input-icons {
+  position: relative;
+}

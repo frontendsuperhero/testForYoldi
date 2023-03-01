@@ -1,0 +1,42 @@
+form {
+  border-radius: 0.5rem;
+  border: 0.1rem solid var(--strokes-secondary);
+}
+
+.form-sign-up {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 40rem;
+  min-width: 40rem;
+  padding: 3rem;
+
+  border: 0.1rem solid var(--strokes-secondary);
+  background-color: var(--white);
+
+  div {
+    margin-bottom: 1.5rem;
+  }
+
+  .h1 {
+    margin-bottom: 2.5rem;
+  }
+
+  .error {
+    padding-left: 2rem;
+    margin-top: -1rem;
+    margin-bottom: 1.4rem;
+
+    font-size: 1.4rem;
+    color: var(--error);
+  }
+
+  button {
+    margin-top: 2.5rem;
+  }
+
+  @media (max-width: 500px) {
+    min-width: 100%;
+    border: transparent;
+  }
+}

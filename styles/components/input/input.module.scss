@@ -1,0 +1,80 @@
+input {
+  min-height: 5rem;
+  min-width: 100%;
+
+  padding-left: 5.5rem;
+
+  font-size: 1.6rem;
+  color: var(--black);
+
+  border-radius: 0.5rem;
+  border: 0.1rem solid var(--strokes-secondary);
+  outline-color: var(--black);
+
+  &::placeholder {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--gray);
+  }
+}
+
+.input-name,
+.input-e-mail,
+.input-pass {
+  position: relative;
+
+  .error {
+    margin-top: 0.75rem;
+    position: absolute;
+  }
+}
+
+.input-name {
+  &::before {
+    content: '';
+    position: absolute;
+    left: 2rem;
+    top: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+
+    background-image: url('/assets/user.svg');
+    background-repeat: no-repeat;
+  }
+}
+
+.input-e-mail {
+  &::before {
+    content: '';
+    position: absolute;
+    left: 2rem;
+    top: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+
+    background-image: url('/assets/mail.svg');
+    background-repeat: no-repeat;
+  }
+}
+
+.input-pass {
+  &::before {
+    content: '';
+    position: absolute;
+    left: 2rem;
+    top: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+
+    background-image: url('/assets/pass.svg');
+    background-repeat: no-repeat;
+  }
+
+  .eye {
+    cursor: pointer;
+
+    position: absolute;
+    right: 1.8rem;
+    top: 1.4rem;
+  }
+}
