@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { Header } from '../Header/Header';
-import Footer from '../Footer.tsx/Footer';
+import Footer from '../Footer/Footer';
 
-export function MainLayoutSeo({ children, title }: any) {
+export function MainLayout({ children, title, footerTitle, headerRightSide }: any) {
   return (
     <div className="container-outter-app">
       <Head>
@@ -13,9 +13,9 @@ export function MainLayoutSeo({ children, title }: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header></Header>
+      <Header headerRightSide={headerRightSide}></Header>
       <main>{children}</main>
-      <Footer></Footer>
+      <Footer footerTitle={footerTitle}></Footer>
     </div>
   );
 }
