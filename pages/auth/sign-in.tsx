@@ -28,15 +28,16 @@ export default function SignIn() {
 
   const handleSignIn = (email: string, password: string) => {
     mutate(
-      'https://frontend-test-api.yoldi.agency/api/auth/login',
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`,
 
-      fetcher('https://frontend-test-api.yoldi.agency/api/auth/login', {
+      fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`, {
         method: 'POST',
-        headers: { 'X-API-KEY': '5cbfb38a-c832-4035-889d-28ed90e1b4a0', 'Content-type': 'application/json' },
+        headers: { 'X-API-KEY': localStorage.getItem('X-API-KEY'), 'Content-type': 'application/json' },
         body: JSON.stringify({ email, password }),
       })
         .then((response: any) => {
           if (response.status === 201 || 200) {
+            localStorage.setItem('X-API-KEY', `${response.value}`);
             return response;
           } else {
             return Promise.reject(response);

@@ -1,4 +1,5 @@
 import '@/styles/globals.scss';
+import '@/styles/pages/all-pages.scss';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 // import type { Session } from 'next-auth';

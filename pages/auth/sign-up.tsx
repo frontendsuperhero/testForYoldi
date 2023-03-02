@@ -30,9 +30,9 @@ export default function SignUp() {
 
   const handleSignUp = (email: string, name: string, password: string) => {
     mutate(
-      'https://frontend-test-api.yoldi.agency/api/auth/sign-up',
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/sign-up`,
 
-      fetcher('https://frontend-test-api.yoldi.agency/api/auth/sign-up', {
+      fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/sign-up`, {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({ email, name, password }),
