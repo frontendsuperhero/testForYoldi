@@ -3,7 +3,7 @@ import { fetcher } from '@/components/hooks/fetcher';
 
 // Лист юзеров
 export default function useUsers() {
-  const { data, mutate, error } = useSWR('https://frontend-test-api.yoldi.agency/api/user', fetcher);
+  const { data, mutate, error } = useSWR(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user`, fetcher);
 
   return { users: data };
 }

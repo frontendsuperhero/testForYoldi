@@ -38,15 +38,13 @@ export default function SignUp() {
         body: JSON.stringify({ email, name, password }),
       })
         .then((response: any) => {
-          if (response.status === 201 || 200) {
+          if (response.value) {
             localStorage.setItem('X-API-KEY', `${response.value}`);
+            router.push('/users');
             return response;
           } else {
             return Promise.reject(response);
           }
-        })
-        .then(() => {
-          router.push('/');
         })
         .catch((response: any) => {
           alert(response.message);

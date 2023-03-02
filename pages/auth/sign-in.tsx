@@ -32,19 +32,17 @@ export default function SignIn() {
 
       fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`, {
         method: 'POST',
-        headers: { 'X-API-KEY': localStorage.getItem('X-API-KEY'), 'Content-type': 'application/json' },
+        headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({ email, password }),
       })
         .then((response: any) => {
-          if (response.status === 201 || 200) {
+          if (response.value) {
             localStorage.setItem('X-API-KEY', `${response.value}`);
+            router.push('/users');
             return response;
           } else {
             return Promise.reject(response);
           }
-        })
-        .then(() => {
-          router.push('/');
         })
         .catch((response: any) => {
           alert(response.message);
@@ -61,7 +59,7 @@ export default function SignIn() {
       }
       footerTitle={
         <>
-          еще нет аккаунта?
+          Еще нет аккаунта?
           <Link href={'/auth/sign-up'} className="footer-sign-up-link">
             Зарегистрироваться
           </Link>

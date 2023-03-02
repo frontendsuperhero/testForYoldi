@@ -1,19 +1,17 @@
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 import { fetcher } from '@/components/hooks/fetcher';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // Данные моего профиля
 export default function useMyProfile() {
-  let { data, error, mutate } = useSWR(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`,
-    fetcher({
-      headers: { 'X-API-KEY': `${localStorage.getItem('X-API-KEY')}`, 'Content-type': 'application/json' },
+  const token = typeof window !== 'undefined' ? localStorage.getItem('X-API-KEY') : null;
+
+  let { data, error, mutate } = useSWR(`${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`, () =>
+    fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`, {
+      method: 'GET',
+      headers: { 'X-API-KEY': token, 'Content-type': 'application/json' },
     })
   );
-
-  useEffect(() => {
-    localStorage.getItem('X-API-KEY');
-  }, []);
 
   if (error || (data && data.statusCode === 401)) {
     return { profile: null, errorProfile: true };
@@ -22,9 +20,5 @@ export default function useMyProfile() {
   return {
     profile: data,
     errorProfile: error,
-    setUser: (userData) => {
-      localStorage.setItem('userWithToken', JSON.stringify(userData));
-      mutate(userData);
-    },
   };
 }
