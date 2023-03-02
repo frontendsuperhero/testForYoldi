@@ -1,0 +1,46 @@
+.container-users-listing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  max-width: 80rem;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5rem;
+
+  .h1 {
+    margin-bottom: 3rem;
+  }
+}
+
+// Листинг юзеров
+.users-listing {
+  // max-height: 56.2rem;
+
+  // display: flex;
+  // flex-direction: column;
+  //align-items: center;
+  // justify-content: center;
+}
+
+// Айтем внутри листинга
+.user-listing-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  min-height: 7rem;
+
+  border-top: 0.1rem solid var(--strokes-secondary);
+  border-bottom: 0.1rem solid var(--strokes-secondary);
+
+  .left-side {
+    display: flex;
+    align-items: center;
+
+    .avatar {
+      margin-right: 2rem;
+    }
+  }
+}

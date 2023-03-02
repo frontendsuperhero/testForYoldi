@@ -1,0 +1,12 @@
+.avatar-zaglushka {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 5rem;
+  min-width: 5rem;
+
+  background-color: var(--strokes-secondary);
+  border-radius: 50%;
+}
