@@ -3,3 +3,12 @@
     object-fit: contain;
   }
 }
+
+.avatar-header {
+  display: flex;
+  align-items: center;
+
+  span {
+    margin-right: 2rem;
+  }
+}
