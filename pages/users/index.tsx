@@ -4,12 +4,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import useMyProfile from '../api/profile';
 import { useEffect } from 'react';
-import GuestHeaderZaglushka from '@/components/Zaglushka/HeaderGuestZaglushka';
-import AvatarAuthorizedUser from '@/components/Avatar/AvatarAuthorizedUser';
+import GuestHeaderZaglushka from '@/components/Header/HeaderGuestZaglushka';
+import AvatarHeaderAuthorizedUser from '@/components/Avatar/AvatarHeaderAuthorizedUser';
+import AvatarZaglushka from '@/components/Avatar/AvatarZaglushka';
 
 export default function usersListing() {
   const { users } = useUsers();
-  const { profile, errorProfile } = useMyProfile();
+  const { profile } = useMyProfile();
 
   // console.log(users);
   console.log(profile, 'Профиль');
@@ -36,27 +37,38 @@ export default function usersListing() {
   }
 
   return (
-    <MainLayout headerRightSide={profile === null ? <GuestHeaderZaglushka /> : <AvatarAuthorizedUser name={'name'} />}>
+    <MainLayout
+      headerRightSide={
+        profile === null ? <GuestHeaderZaglushka /> : <AvatarHeaderAuthorizedUser name={`${profile?.name}`} image={`${profile?.image}`} />
+      }
+    >
       <section className="container-users-listing">
         <div className="h1">Список аккаунтов</div>
         <ul className="users-listing">
           {users &&
             users.map((user: Iuser) => (
-              <li className="user-listing-item" key={user.slug}>
-                <Link href={`users/${user.slug}`}>
+              <li className="user-listing-item" key={user?.slug}>
+                <Link href={`users/${user?.slug}`}>
                   <div className="left-side">
                     <div className="avatar">
-                      {user.image === null ? (
-                        <div className="avatar-zaglushka">{`${user.name.slice(0, 1)}`}</div>
+                      {user?.image === null ? (
+                        <AvatarZaglushka name={user?.name} />
                       ) : (
                         <Image src={`${user?.image?.url}`} width="50" height="50" alt="user-image" />
                       )}
                     </div>
-                    <div>{user.name}</div>
+                    <div className="container-for-mob">
+                      <div>{user?.name}</div>
+                      <Link className="link-email-mob" href={`mailto: ${user?.email}`}>
+                        {user?.email}
+                      </Link>
+                    </div>
                   </div>
                 </Link>
 
-                <Link href={`mailto: ${user.email}`}>{user.email}</Link>
+                <Link href={`mailto: ${user?.email}`} className="link-email">
+                  {user?.email}
+                </Link>
               </li>
             ))}
         </ul>
