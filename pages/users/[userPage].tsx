@@ -13,14 +13,20 @@ export default function UserPage() {
   let query = router.query;
 
   const { userPage } = useUserPage(query.userPage);
-  const { profile } = useMyProfile();
+  const { profile, isLoading } = useMyProfile();
 
   // console.log(userPage, 'Страница юзера');
 
   return (
     <MainLayout
       headerRightSide={
-        profile === null ? <GuestHeaderZaglushka /> : <AvatarHeaderAuthorizedUser name={`${profile?.name}`} image={`${profile?.image}`} />
+        isLoading ? (
+          <Image src="/assets/preloader-2.svg" width="50" height="50" alt="preloader" />
+        ) : profile === null ? (
+          <GuestHeaderZaglushka />
+        ) : (
+          <AvatarHeaderAuthorizedUser name={profile?.name} image={profile?.image} />
+        )
       }
     >
       <section className="user-page">
@@ -45,7 +51,6 @@ export default function UserPage() {
             <Link href={`mailto: ${userPage?.email}`} className="e-mail">
               {userPage?.email}
             </Link>
-
             <div>
               {userPage?.description !== null ? (
                 <p>userPage?.description</p>

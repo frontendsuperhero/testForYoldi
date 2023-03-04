@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 export default function useMyProfile() {
   const token = typeof window !== 'undefined' ? localStorage.getItem('X-API-KEY') : null;
 
-  let { data, error, mutate } = useSWR(`${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`, () =>
+  let { data, error, mutate, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`, () =>
     fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`, {
       method: 'GET',
       headers: { 'X-API-KEY': token, 'Content-type': 'application/json' },
@@ -20,5 +20,6 @@ export default function useMyProfile() {
   return {
     profile: data,
     errorProfile: error,
+    isLoading: isLoading,
   };
 }

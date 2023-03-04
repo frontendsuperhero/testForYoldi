@@ -6,7 +6,7 @@ export function Header({ headerRightSide }: any) {
     <header>
       <div className="container container-header">
         <div className="left-side">
-          <Link href="/">
+          <Link href="/users">
             <Image src="/assets/logo.svg" alt="logo" width="80" height="50" />
           </Link>
           <p>Разрабатываем и запускаем сложные веб проекты</p>
