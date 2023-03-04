@@ -1,0 +1,25 @@
+.profile-page {
+  .edit {
+    position: absolute;
+    left: 50%;
+    bottom: -65%;
+
+    flex-direction: row;
+
+    min-width: 20rem;
+
+    font-weight: 500;
+    transition: 0.25s ease-in-out;
+
+    svg {
+      margin-right: 1rem;
+    }
+
+    &:hover {
+      svg {
+        stroke: var(--white);
+        transition: 0.25s ease-in-out;
+      }
+    }
+  }
+}
