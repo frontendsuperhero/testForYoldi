@@ -12,6 +12,8 @@ export default function usersListing() {
   const { users, loading } = useUsers();
   const { profile, isLoading } = useMyProfile();
 
+  console.log(users);
+
   interface Iuser {
     name: string;
     email: string;
@@ -20,7 +22,7 @@ export default function usersListing() {
 
     image?: {
       id: string;
-      url: string;
+      url?: string;
       width: string;
       height: string;
     };
@@ -57,10 +59,10 @@ export default function usersListing() {
                 <div className="left-side">
                   <Link href={`users/${user?.slug}`}>
                     <div className="avatar">
-                      {user?.image === null ? (
+                      {user?.image?.url === null || user?.image?.url === undefined || user?.image?.url === 'unknown' ? (
                         <AvatarZaglushka name={user?.name} />
                       ) : (
-                        <Image src={`${user?.image?.url}`} width="50" height="50" alt="user-image" />
+                        <Image src={user?.image?.url} width="50" height="50" alt="user-avatar" />
                       )}
                     </div>
                   </Link>

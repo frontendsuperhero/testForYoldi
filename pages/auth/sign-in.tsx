@@ -38,6 +38,7 @@ export default function SignIn() {
         .then((response: any) => {
           if (response.value) {
             localStorage.setItem('X-API-KEY', `${response.value}`);
+            localStorage.setItem('password', `${password}`);
             router.push('/users');
             return response;
           } else {
@@ -104,7 +105,7 @@ export default function SignIn() {
                 />
 
                 <Image
-                  src={'/assets/eye-solid.svg'}
+                  src="/assets/eye-solid.svg"
                   width="25"
                   height="25"
                   alt="eye-icon"
