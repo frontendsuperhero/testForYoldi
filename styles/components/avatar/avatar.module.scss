@@ -5,10 +5,98 @@
 }
 
 .avatar-header {
+  position: relative;
+
   display: flex;
   align-items: center;
 
+  cursor: pointer;
+
+  z-index: 300;
+
   span {
     margin-right: 2rem;
+  }
+
+  .hover {
+    position: absolute;
+    top: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    min-height: 14rem;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: 0.25s ease-in-out;
+  }
+
+  &:hover {
+    .arrow {
+      opacity: 0;
+      visibility: hidden;
+
+      transition: 0.25s ease-in-out;
+    }
+
+    .hover {
+      opacity: 1;
+      visibility: visible;
+
+      transition: 0.25s ease-in-out;
+    }
+  }
+
+  .arrow {
+    position: absolute;
+    top: 0.5rem;
+    left: -15rem;
+    // right: -3rem;
+
+    display: flex;
+
+    align-items: center;
+    max-width: 12rem;
+
+    transition: 0.25s ease-in-out;
+
+    svg {
+      order: 1;
+      animation: spin 0.7s infinite linear;
+    }
+
+    .title-mob {
+      display: none;
+    }
+  }
+
+  @keyframes spin {
+    0%,
+    100% {
+      transform: translateX(50%);
+    }
+    50% {
+      transform: translateX(150%);
+    }
+  }
+
+  @media (max-width: 910px) {
+    .arrow {
+      top: 0.75rem;
+      left: -12rem;
+      max-width: 9rem;
+
+      .title {
+        display: none;
+      }
+
+      .title-mob {
+        font-size: 1.3rem;
+        display: block;
+      }
+    }
   }
 }

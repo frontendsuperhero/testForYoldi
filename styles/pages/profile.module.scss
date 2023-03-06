@@ -11,6 +11,8 @@
     font-weight: 500;
     transition: 0.25s ease-in-out;
 
+    z-index: 300;
+
     svg {
       margin-right: 1rem;
     }
@@ -20,6 +22,98 @@
         stroke: var(--white);
         transition: 0.25s ease-in-out;
       }
+    }
+  }
+
+  .e-mail {
+    max-width: fit-content;
+  }
+
+  .cover {
+    &:hover {
+      .hover {
+        opacity: 1;
+        visibility: visible;
+
+        transition: 0.25s ease-in-out;
+      }
+    }
+  }
+
+  .cover > .hover {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateX(-50%);
+    transition: 0.25s ease-in-out;
+
+    label {
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .button-outline {
+        display: flex;
+        flex-direction: row;
+        min-width: 19.5rem;
+
+        p {
+          margin: 0 1rem;
+        }
+
+        &:hover {
+          border: transparent;
+          svg {
+            stroke: var(--white);
+          }
+        }
+      }
+    }
+
+    input {
+      position: absolute;
+      max-width: 19rem;
+      opacity: 0;
+
+      cursor: pointer;
+    }
+  }
+
+  .description {
+    margin-bottom: 6rem;
+  }
+
+  .logout {
+    flex-direction: row;
+    align-items: center;
+    max-width: 13rem;
+
+    svg {
+      margin-right: 1rem;
+    }
+
+    &:hover {
+      svg {
+        stroke: var(--white);
+      }
+    }
+  }
+
+  @media (max-width: 500px) {
+    .edit {
+      left: 6%;
+      bottom: -102%;
+    }
+
+    .e-mail {
+      margin-bottom: 8rem !important;
     }
   }
 }

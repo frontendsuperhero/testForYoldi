@@ -45,3 +45,19 @@ button {
     transition: 0.25s ease-in-out;
   }
 }
+
+.button-black {
+  background-color: var(--black);
+  border: 0.1rem solid var(--black);
+  border-radius: 0.5rem;
+
+  color: var(--white);
+
+  transition: 0.25s ease-in-out;
+
+  &:hover {
+    background-color: var(--white);
+    color: var(--black);
+    transition: 0.25s ease-in-out;
+  }
+}

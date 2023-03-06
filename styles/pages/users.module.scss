@@ -80,7 +80,9 @@
 }
 
 .user-page {
-  .cover-and-user {
+  padding-bottom: 12rem;
+
+  .cover-and-edit {
     position: relative;
   }
 
@@ -92,8 +94,7 @@
   }
 
   .user {
-    position: absolute;
-    top: 15rem;
+    position: relative;
 
     display: flex;
     flex-direction: column;
@@ -102,18 +103,70 @@
     max-width: 60rem;
     margin-right: auto;
     margin-left: 15%;
+    margin-top: -5.5rem;
+
+    z-index: 100;
 
     .avatar {
+      position: relative;
+      max-width: 10rem;
+      min-width: 10rem;
+      max-height: 10rem;
+      min-height: 10rem;
+
       margin-bottom: 3.5rem;
+
+      cursor: pointer;
 
       img {
         border-radius: 50%;
         object-fit: cover;
       }
+
+      .hover {
+        position: absolute;
+        top: 0;
+
+        opacity: 0;
+        visibility: hidden;
+
+        max-width: 10rem;
+        min-width: 10rem;
+        max-height: 10rem;
+        min-height: 10rem;
+
+        transition: 0.25s ease-in-out;
+
+        svg {
+          position: absolute;
+          top: 2.25rem;
+          left: 2.3rem;
+        }
+
+        input {
+          position: absolute;
+          top: 0;
+
+          min-height: 10rem;
+          max-width: 10rem;
+
+          opacity: 0;
+          cursor: pointer;
+        }
+      }
+
+      &:hover {
+        .hover {
+          visibility: visible;
+          opacity: 1;
+          transition: 0.25s ease-in-out;
+        }
+      }
     }
 
     .h1 {
       margin-bottom: 1rem;
+      word-wrap: break-word;
     }
 
     .e-mail {
@@ -124,7 +177,7 @@
 
   @media (max-width: 900px) {
     .user {
-      margin: 0 3rem;
+      margin: -5.5rem 3rem 0;
     }
   }
 }

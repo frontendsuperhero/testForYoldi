@@ -28,6 +28,10 @@ body {
   color: var(--black);
 
   overflow-x: hidden;
+
+  &.ReactModal__Body--open {
+    overflow-y: hidden;
+  }
 }
 
 a {
