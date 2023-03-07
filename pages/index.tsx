@@ -10,7 +10,7 @@ import AvatarHeaderAuthorizedUser from '@/components/Avatar/AvatarHeaderAuthoriz
 import AvatarZaglushkaUserPage from '@/components/Avatar/AvaUserPageZaglushka';
 import Link from 'next/link';
 import Modal from 'react-modal';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ReactModal from 'react-modal';
 import { fetcher } from '@/components/hooks/fetcher';
 import { useSWRConfig } from 'swr';
@@ -32,9 +32,7 @@ export default function Profile() {
   const [imageAvatar, setImageAvatar] = useState();
   const router = useRouter();
 
-  // let avatar = uuidv4(imageAvatar);
-
-  let avatarWithOutUuid = imageAvatar;
+  let avatar = uuidv4(imageAvatar);
   let cover = uuidv4(imageCover);
 
   const imageCoverChange = (event: any) => {
@@ -45,65 +43,39 @@ export default function Profile() {
 
   const imageAvatarChange = (event: any) => {
     if (event.target.files && event.target.files.length > 0) {
-      setImageAvatar(event.target.files[0]);
       handleEditImage(event.target.files[0]);
+      setImageAvatar(event.target.files[0]);
     }
   };
 
   useEffect(() => {
     ReactModal.setAppElement('#profile');
-    console.log(localStorage.getItem('X-API-KEY'), 'ключ');
-    console.log(localStorage.getItem('password'));
   }, []);
 
-  console.log(profile);
+  const handleEditImage = async (avatarWithOutUuid?: any, ref?: any) => {
+    let formData = new FormData();
 
-  const handleEditImage = (avatarWithOutUuid?: any) => {
-    mutate(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/image`,
-      fetcher(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
-        method: 'POST',
-        // withCredentials: true,
+    console.log(avatarWithOutUuid, 'это avatarWithOutUuid');
+    formData.append('file', avatarWithOutUuid);
 
-        headers: {
-          // 'X-API-KEY': `${localStorage.getItem('X-API-KEY')}`,
-          // accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
-        },
-        body: (() => {
-          const formData = new FormData();
-          // formData.append('file', avatarWithOutUuid);
-          console.log(avatarWithOutUuid);
-          formData.append('file', avatarWithOutUuid);
-          // console.log(formData);
-          return formData;
-        })(),
+    const request = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response: any) => {
+        if (response) {
+          console.log(response);
+          return response;
+        } else {
+          return Promise.reject(response);
+        }
       })
-        .then((response: any) => {
-          if (response) {
-            alert(response.message);
-            return response;
-          } else {
-            return Promise.reject(response);
-          }
-        })
-        .catch((response: any) => {
-          // throw new Error(response);
-          alert(response);
-        })
-    );
+      .catch((response: any) => {
+        alert(response.message);
+      });
   };
 
-  const handleEditProfile = (
-    name: string,
-    imageId: string,
-    password: string,
-    slug: string,
-    coverId: string,
-    description: string,
-    imageUrl: string,
-    coverUrl: string
-  ) => {
+  const handleEditProfile = (name: string, imageId: string, password: string, slug: string, coverId: string, description: string) => {
     mutate(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`,
 
@@ -134,7 +106,6 @@ export default function Profile() {
         })
         .catch((response: any) => {
           throw new Error(response);
-          // alert(response);
         })
     );
   };
@@ -334,9 +305,7 @@ export default function Profile() {
                         values.address ?? profile?.slug,
                         cover ?? profile?.cover,
                         // description || description === '' ?? profile.description,
-                        description ?? profile.description,
-                        `https://frontend-test-api.yoldi.agency/api/image/src/${avatar}`,
-                        `https://frontend-test-api.yoldi.agency/api/image/src/${cover}`
+                        description ?? profile.description
                       );
 
                       closeModal();

@@ -31,7 +31,7 @@ export default function UserPage() {
     >
       <section className="user-page">
         <div className="cover">
-          {userPage && userPage?.cover !== null ? (
+          {userPage && userPage?.cover !== null && userPage?.cover?.url !== 'unknown' && userPage?.cover?.url !== undefined ? (
             <Image src={userPage?.cover?.url} width="1920" height="200" alt="user-cover" />
           ) : (
             <Image src="/assets/cover-zaglushka.png" width="1920" height="200" alt="user-cover-zaglushka" />
@@ -40,7 +40,7 @@ export default function UserPage() {
 
         <div className="user">
           <div className="avatar">
-            {(userPage && userPage?.image !== null) || undefined ? (
+            {userPage && userPage?.image !== null && userPage?.image?.url !== undefined && userPage?.image?.url !== 'unknown' ? (
               <Image src={userPage?.image?.url} width="100" height="100" alt="user-avatar" />
             ) : (
               <AvatarZaglushkaUserPage name={userPage?.name} />
