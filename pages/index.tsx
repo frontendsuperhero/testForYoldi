@@ -58,7 +58,7 @@ export default function Profile() {
     console.log(avatarWithOutUuid, 'это avatarWithOutUuid');
     formData.append('file', avatarWithOutUuid);
 
-    const request = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
       method: 'POST',
       body: formData,
     })
