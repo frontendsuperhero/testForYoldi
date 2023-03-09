@@ -17,7 +17,7 @@ import { useSWRConfig } from 'swr';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import { useRouter } from 'next/router';
-import { v4 as uuidv4 } from 'uuid';
+import { redirect } from 'next/navigation';
 
 export default function Profile() {
   const { mutate }: any = useSWRConfig();
@@ -32,46 +32,89 @@ export default function Profile() {
   const [imageAvatar, setImageAvatar] = useState();
   const router = useRouter();
 
-  let avatar = uuidv4(imageAvatar);
-  let cover = uuidv4(imageCover);
-
   const imageCoverChange = (event: any) => {
     if (event.target.files && event.target.files.length > 0) {
+      handleEditCover(event.target.files[0]);
       setImageCover(event.target.files[0]);
     }
   };
 
   const imageAvatarChange = (event: any) => {
     if (event.target.files && event.target.files.length > 0) {
-      handleEditImage(event.target.files[0]);
+      handleEditAvatar(event.target.files[0]);
       setImageAvatar(event.target.files[0]);
     }
   };
 
   useEffect(() => {
     ReactModal.setAppElement('#profile');
+
+    if (!profile) {
+      router.push('/users');
+    }
   }, []);
 
-  const handleEditImage = async (avatarWithOutUuid?: any, ref?: any) => {
+  const handleEditAvatar = async (avatarFile?: File) => {
     let formData = new FormData();
-
-    console.log(avatarWithOutUuid, 'это avatarWithOutUuid');
-    formData.append('file', avatarWithOutUuid);
+    formData.append('file', avatarFile as Blob);
 
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
       method: 'POST',
       body: formData,
     })
+      .then((response: any) => response.json())
       .then((response: any) => {
         if (response) {
-          console.log(response);
+          localStorage.setItem('avatarId', `${response?.id}`);
+
+          handleEditProfile(
+            profile?.name,
+            localStorage.getItem('avatarId') ?? profile?.image?.id,
+            localStorage.getItem('password') ?? '',
+            profile?.slug,
+            localStorage.getItem('coverId') ?? profile?.cover?.id,
+            profile?.description
+          );
+
           return response;
         } else {
           return Promise.reject(response);
         }
       })
       .catch((response: any) => {
-        alert(response.message);
+        alert(response);
+      });
+  };
+
+  const handleEditCover = async (coverFile?: File) => {
+    let formData = new FormData();
+    formData.append('file', coverFile as Blob);
+
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response: any) => response.json())
+      .then((response: any) => {
+        if (response) {
+          localStorage.setItem('coverId', `${response?.id}`);
+
+          handleEditProfile(
+            profile?.name,
+            localStorage.getItem('avatarId') ?? profile?.image?.id,
+            localStorage.getItem('password') ?? '',
+            profile?.slug,
+            localStorage.getItem('coverId') ?? profile?.cover?.id,
+            profile?.description
+          );
+
+          return response;
+        } else {
+          return Promise.reject(response);
+        }
+      })
+      .catch((response: any) => {
+        alert(response);
       });
   };
 
@@ -105,7 +148,7 @@ export default function Profile() {
           }
         })
         .catch((response: any) => {
-          throw new Error(response);
+          alert(response);
         })
     );
   };
@@ -188,7 +231,7 @@ export default function Profile() {
 
         <div className="user">
           <div className="avatar">
-            {profile && profile?.image.url !== null && profile?.image.url !== undefined && profile?.image.url !== 'unknown' ? (
+            {profile && profile?.image?.url !== null && profile?.image?.url !== undefined && profile?.image?.url !== 'unknown' ? (
               imageAvatar ? (
                 <Image src={URL.createObjectURL(imageAvatar)} width="100" height="100" alt="user-avatar-preload" />
               ) : (
@@ -207,9 +250,7 @@ export default function Profile() {
                   fill="white"
                 />
               </svg>
-              <form>
-                <input type="file" onChange={imageAvatarChange} />
-              </form>
+              <input type="file" onChange={imageAvatarChange} />
             </div>
           </div>
 
@@ -300,12 +341,11 @@ export default function Profile() {
 
                       handleEditProfile(
                         values.name ?? profile?.name,
-                        avatar ?? profile?.image?.url,
+                        localStorage.getItem('avatarId') ?? profile?.image?.id,
                         localStorage.getItem('password') ?? '',
                         values.address ?? profile?.slug,
-                        cover ?? profile?.cover,
-                        // description || description === '' ?? profile.description,
-                        description ?? profile.description
+                        localStorage.getItem('coverId') ?? profile?.cover?.id,
+                        description ?? profile?.description
                       );
 
                       closeModal();
