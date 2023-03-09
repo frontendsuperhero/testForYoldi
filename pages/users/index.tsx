@@ -8,11 +8,9 @@ import GuestHeaderZaglushka from '@/components/Header/HeaderGuestZaglushka';
 import AvatarHeaderAuthorizedUser from '@/components/Avatar/AvatarHeaderAuthorizedUser';
 import AvatarZaglushka from '@/components/Avatar/AvatarZaglushka';
 
-export default function usersListing() {
+export default function UsersListing() {
   const { users, loading } = useUsers();
   const { profile, isLoading } = useMyProfile();
-
-  console.log(users);
 
   interface Iuser {
     name: string;

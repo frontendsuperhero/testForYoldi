@@ -48,11 +48,7 @@ export default function Profile() {
 
   useEffect(() => {
     ReactModal.setAppElement('#profile');
-
-    if (!profile) {
-      router.push('/users');
-    }
-  }, []);
+  });
 
   const handleEditAvatar = async (avatarFile?: File) => {
     let formData = new FormData();

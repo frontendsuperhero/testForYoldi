@@ -11,6 +11,11 @@ input {
   border: 0.1rem solid var(--strokes-secondary);
   outline-color: var(--black);
 
+  &:focus {
+    outline-style: solid;
+    outline-color: var(--black);
+  }
+
   &::placeholder {
     font-size: 1.6rem;
     font-weight: 400;
