@@ -15,8 +15,6 @@ export default function UserPage() {
   const { userPage, isLoad } = useUserPage(query.userPage);
   const { profile, isLoading } = useMyProfile();
 
-  console.log(userPage, 'профиль');
-
   return (
     <MainLayout
       headerRightSide={
