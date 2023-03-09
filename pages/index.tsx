@@ -17,8 +17,6 @@ import { useSWRConfig } from 'swr';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import { useRouter } from 'next/router';
-import { redirect } from 'next/navigation';
-import { useHistory } from 'react-router-dom';
 
 export default function Profile() {
   const { mutate }: any = useSWRConfig();
