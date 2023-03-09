@@ -18,6 +18,7 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import { useRouter } from 'next/router';
 import { redirect } from 'next/navigation';
+import { useHistory } from 'react-router-dom';
 
 export default function Profile() {
   const { mutate }: any = useSWRConfig();
@@ -48,6 +49,10 @@ export default function Profile() {
 
   useEffect(() => {
     ReactModal.setAppElement('#profile');
+
+    if (!profile && !isLoading) {
+      router.push('/users');
+    }
   });
 
   const handleEditAvatar = async (avatarFile?: File) => {
