@@ -7,7 +7,7 @@ export default function AvatarHeaderAuthorizedUser({ name, image }: { name: stri
       <div className="avatar-header">
         <span>{name}</span>
         <div className="avatar-zaglushka-sm">
-          {(image && image === null) || image === 'undefined' || image === 'unknown' ? (
+          {image && image !== null && image !== 'undefined' && image !== 'unknown' ? (
             `${name?.slice(0, 1)}`
           ) : (
             <Image src={image} width="50" height="50" alt="user-image" />
