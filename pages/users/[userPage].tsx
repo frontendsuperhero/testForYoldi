@@ -23,7 +23,7 @@ export default function UserPage() {
         ) : profile === null ? (
           <GuestHeaderZaglushka />
         ) : (
-          <AvatarHeaderAuthorizedUser name={profile?.name} image={profile?.image} />
+          <AvatarHeaderAuthorizedUser name={profile?.name} image={profile?.image?.url} />
         )
       }
     >
